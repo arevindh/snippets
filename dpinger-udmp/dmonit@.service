@@ -1,0 +1,13 @@
+[Unit]
+Description=Unifi Grafana Logger
+After=network.target
+Wants=network-online.target
+
+[Service]
+Restart=always
+Type=simple
+ExecStart=python3 /data/grafana/dpinger_influx_logger $INFLUX_URL influx UDM-Pro %I 1.1.1.1 %I
+Environment='INFLUX_URL=http://<influx-ip>:8086' 'INFLUX_USER=<influx-user>' 'INFLUX_PASS=<influx-pass>'
+
+[Install]
+WantedBy=multi-user.target
